@@ -9,4 +9,9 @@
     <string name="resposta_correta">Correto!</string>
     <string name="resposta_incorreta">Incorreto!</string>
 
+    <string name="next_button">Next ></string>
+
+    <string name="questao1">O céu é azul?</string>
+    <string name="questao2">Jesus é homem?</string>
+    <string name="questao3">Bolsonaro 2018?</string>
 </resources>
