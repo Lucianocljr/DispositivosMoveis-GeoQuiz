@@ -5,6 +5,8 @@ public class Question {
     private int mQuestaoID;
     private boolean mRespostaCorreta;
 
+
+
     public int getmQuestaoID(){
         return mQuestaoID;
     }
@@ -25,4 +27,13 @@ public class Question {
         this.mQuestaoID=mQuestaoID;
         this.mRespostaCorreta=mRespostaCorreta;
     }
+
+
+    public boolean CheckAnswer(int i){
+
+
+        return true;
+    }
+
+
 }

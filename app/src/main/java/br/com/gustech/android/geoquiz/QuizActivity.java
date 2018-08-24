@@ -13,7 +13,7 @@ public class QuizActivity extends AppCompatActivity {
     private Button mBotaoFalse;
     private Button mBotaoNext;
 
-    private int mQuestaoCorrente =0;
+    private int mQuestaoCorrente = 0;
 
     private TextView mQuestoes;
 
@@ -36,18 +36,14 @@ public class QuizActivity extends AppCompatActivity {
         mBotaoTrue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(QuizActivity.this,
-                        R.string.resposta_correta,
-                        Toast.LENGTH_SHORT).show();
+                verificarAcerto(true);
             }
         });
 
         mBotaoFalse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(QuizActivity.this,
-                        R.string.resposta_incorreta,
-                        Toast.LENGTH_SHORT).show();
+                verificarAcerto(false);
             }
         });
 
@@ -59,12 +55,32 @@ public class QuizActivity extends AppCompatActivity {
                 mQuestoes.setText(idQuestion);
             }
         });
-
-
         int question = mBancoDeQuestoes[mQuestaoCorrente].getmQuestaoID();
         mQuestoes.setText(question);
+    }
 
-
+    private void verificarAcerto(boolean respostaDoUsuario){
+        //Verificacao se e verdadeiro
+        if(mBancoDeQuestoes[mQuestaoCorrente].mRespostaCorreta() == respostaDoUsuario){
+            //mQuestaoCorrente = (mQuestaoCorrente +1) % mBancoDeQuestoes.length;
+            if(mQuestaoCorrente < 3){
+                mQuestaoCorrente++;
+            }
+            if(mQuestaoCorrente == 3){
+                mQuestaoCorrente = 0;
+            }
+            int idQuestion = mBancoDeQuestoes[mQuestaoCorrente].getmQuestaoID();
+            mQuestoes.setText(idQuestion);
+            Toast.makeText(QuizActivity.this,
+                    R.string.resposta_correta,
+                    Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(QuizActivity.this,
+                    R.string.resposta_incorreta,
+                    Toast.LENGTH_SHORT).show();
+        }
 
     }
+
+
 }
