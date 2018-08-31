@@ -14,4 +14,7 @@
     <string name="questao1">O céu é azul?</string>
     <string name="questao2">Jesus é homem?</string>
     <string name="questao3">Bolsonaro 2018?</string>
+    <string name="questao4">Brasilia é a capital do Brasil</string>
+    <string name="questao5">1 + 1 = 67</string>
+    <string name="resultado">Pontuacao total = </string>
 </resources>

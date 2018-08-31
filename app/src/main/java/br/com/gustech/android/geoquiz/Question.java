@@ -4,6 +4,7 @@ public class Question {
 
     private int mQuestaoID;
     private boolean mRespostaCorreta;
+    private boolean mRespondida;
 
 
 
@@ -23,9 +24,18 @@ public class Question {
         this.mRespostaCorreta = mRespostaCorreta;
     }
 
-    public Question (int mQuestaoID, boolean mRespostaCorreta){
+    public void setmRespondida(boolean resposta){
+        this.mRespondida = resposta;
+    }
+
+    public boolean getmRespondida(){
+        return mRespondida;
+    }
+
+    public Question (int mQuestaoID, boolean mRespostaCorreta, boolean mRespondida){
         this.mQuestaoID=mQuestaoID;
         this.mRespostaCorreta=mRespostaCorreta;
+        this.mRespondida=mRespondida;
     }
 
 

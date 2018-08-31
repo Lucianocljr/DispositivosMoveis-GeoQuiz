@@ -44,12 +44,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <Button
-                android:id="@+id/next_button"
-                android:layout_width="134dp"
+
+            <!--ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:text="@string/next_button" />
+                android:layout_weight="1"
+                app:srcCompat="@android:drawable/ic_media_previous" /-->
+
+            <ImageButton
+                android:id="@+id/previous_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@android:drawable/ic_media_previous"/>
+               <!-- android:text="<Previous" /-->
+
+            <ImageButton
+                android:id="@+id/next_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@android:drawable/ic_media_next" />
+                <!--android:padding="20dp"
+                android:text="@string/next_button"-->
+
+
+            <!--ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@android:drawable/ic_media_next" /-->
         </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

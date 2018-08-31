@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -11,75 +12,168 @@ public class QuizActivity extends AppCompatActivity {
 
     private Button mBotaoTrue;
     private Button mBotaoFalse;
-    private Button mBotaoNext;
+    private ImageButton mBotaoNext;
+    private ImageButton mBotaoPrevious;
+    private int mContQuestoes = 0;
+    private int mPontuacao = 0;
 
     private int mQuestaoCorrente = 0;
 
     private TextView mQuestoes;
 
     private Question[] mBancoDeQuestoes = new Question[]{
-            new Question(R.string.questao1,true),
-            new Question(R.string.questao2,true),
-            new Question(R.string.questao3,false),
+            new Question(R.string.questao1, true, false),
+            new Question(R.string.questao2, true, false),
+            new Question(R.string.questao3, false, false),
+            new Question(R.string.questao4, true, false),
+            new Question(R.string.questao5, false, false)
     };
+
+    public void setmPontuacao(int pontos) {
+        this.mPontuacao = pontos;
+    }
+
+    public int getmPontuacao() {
+        return mPontuacao;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
-        mBotaoTrue = (Button) findViewById(R.id.true_button);
-        mBotaoFalse = (Button) findViewById(R.id.false_button);
+        System.out.println("contador das questoes " + mContQuestoes);
+        System.out.println("tamanho do banco de questoes " + mBancoDeQuestoes.length);
+        System.out.println("indice da questao vigente " + mQuestaoCorrente);
+
         mQuestoes = (TextView) findViewById(R.id.questoes);
-        mBotaoNext = (Button) findViewById(R.id.next_button);
-
-        mBotaoTrue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                verificarAcerto(true);
-            }
-        });
-
-        mBotaoFalse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                verificarAcerto(false);
-            }
-        });
-
-        mBotaoNext.setOnClickListener(new View.OnClickListener() {
+        mQuestoes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mQuestaoCorrente = (mQuestaoCorrente +1) % mBancoDeQuestoes.length;
-                int idQuestion = mBancoDeQuestoes[mQuestaoCorrente].getmQuestaoID();
-                mQuestoes.setText(idQuestion);
+                if (mQuestaoCorrente < mBancoDeQuestoes.length - 1) {
+                    mQuestaoCorrente++;
+                    //mQuestaoCorrente = (mQuestaoCorrente + 1) % mBancoDeQuestoes.length;
+                    int idQuestion = mBancoDeQuestoes[mQuestaoCorrente].getmQuestaoID();
+                    mQuestoes.setText(idQuestion);
+                }
             }
         });
+
+
+        mBotaoTrue = (Button) findViewById(R.id.true_button);
+
+        if (mBancoDeQuestoes[mQuestaoCorrente].getmRespondida() == false) {
+
+            mBotaoTrue.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+
+                    verificarAcerto(true);
+                    mBancoDeQuestoes[mQuestaoCorrente].setmRespondida(true);
+
+                }
+            });
+
+        }
+
+
+        mBotaoFalse = (Button) findViewById(R.id.false_button);
+
+        if (mBancoDeQuestoes[mQuestaoCorrente].getmRespondida() == false) {
+
+            mBotaoFalse.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    verificarAcerto(false);
+                    mBancoDeQuestoes[mQuestaoCorrente].setmRespondida(true);
+                }
+
+            });
+
+        }
+
+
+        mBotaoNext = (ImageButton) findViewById(R.id.next_button);
+
+        if (mQuestaoCorrente < mBancoDeQuestoes.length - 1) {
+
+
+            mBotaoNext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+
+
+                    int idQuestion = mBancoDeQuestoes[mQuestaoCorrente].getmQuestaoID();
+                    mQuestoes.setText(idQuestion);
+                    mContQuestoes++;
+                    mQuestaoCorrente++;
+                    System.out.println("contador das questoes no next " + mContQuestoes);
+                    System.out.println("indice da questao vigente " + mQuestaoCorrente);
+
+                }
+            });
+
+        }
+
+
+        mBotaoPrevious = (ImageButton) findViewById(R.id.previous_button);
+
+        if (mContQuestoes < 0) {
+
+            mBotaoPrevious.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+
+                    mQuestaoCorrente = (mQuestaoCorrente - 1) % mBancoDeQuestoes.length;
+                    int idQuestion = mBancoDeQuestoes[mQuestaoCorrente].getmQuestaoID();
+                    mQuestoes.setText(idQuestion);
+                    mContQuestoes--;
+                    System.out.println("contador das questoes no previous " + mContQuestoes);
+                    System.out.println("indice da questao vigente " + mQuestaoCorrente);
+
+                }
+            });
+
+        }
+
+
         int question = mBancoDeQuestoes[mQuestaoCorrente].getmQuestaoID();
         mQuestoes.setText(question);
     }
 
-    private void verificarAcerto(boolean respostaDoUsuario){
+    private void verificarAcerto(boolean respostaDoUsuario) {
         //Verificacao se e verdadeiro
-        if(mBancoDeQuestoes[mQuestaoCorrente].mRespostaCorreta() == respostaDoUsuario){
+        if (mBancoDeQuestoes[mQuestaoCorrente].mRespostaCorreta() == respostaDoUsuario) {
             //mQuestaoCorrente = (mQuestaoCorrente +1) % mBancoDeQuestoes.length;
-            if(mQuestaoCorrente < 3){
+            if (mQuestaoCorrente < mBancoDeQuestoes.length) {
                 mQuestaoCorrente++;
-            }
-            if(mQuestaoCorrente == 3){
-                mQuestaoCorrente = 0;
+                mPontuacao = mPontuacao + 100;
             }
             int idQuestion = mBancoDeQuestoes[mQuestaoCorrente].getmQuestaoID();
             mQuestoes.setText(idQuestion);
             Toast.makeText(QuizActivity.this,
                     R.string.resposta_correta,
                     Toast.LENGTH_SHORT).show();
-        }else{
+            mContQuestoes++;
+        } else {
+
             Toast.makeText(QuizActivity.this,
                     R.string.resposta_incorreta,
                     Toast.LENGTH_SHORT).show();
+            mQuestaoCorrente++;
         }
 
+    }
+
+    public void mostrarPontuacao() {
+        Toast.makeText(QuizActivity.this,
+                R.string.resultado + mPontuacao,
+                Toast.LENGTH_SHORT).show();
     }
 
 
