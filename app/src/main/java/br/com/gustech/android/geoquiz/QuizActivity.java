@@ -81,7 +81,7 @@ public class QuizActivity extends AppCompatActivity {
 
         mBotaoFalse = (Button) findViewById(R.id.false_button);
 
-        if (mBancoDeQuestoes[mQuestaoCorrente].getmRespondida() == false) {
+        if (! mBancoDeQuestoes[mQuestaoCorrente].getmRespondida()) {
 
             mBotaoFalse.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -98,7 +98,7 @@ public class QuizActivity extends AppCompatActivity {
 
         mBotaoNext = (ImageButton) findViewById(R.id.next_button);
 
-        if (mQuestaoCorrente < mBancoDeQuestoes.length - 1) {
+
 
 
             mBotaoNext.setOnClickListener(new View.OnClickListener() {
@@ -106,40 +106,40 @@ public class QuizActivity extends AppCompatActivity {
                 public void onClick(View view) {
 
 
-
-                    int idQuestion = mBancoDeQuestoes[mQuestaoCorrente].getmQuestaoID();
-                    mQuestoes.setText(idQuestion);
-                    mContQuestoes++;
-                    mQuestaoCorrente++;
-                    System.out.println("contador das questoes no next " + mContQuestoes);
-                    System.out.println("indice da questao vigente " + mQuestaoCorrente);
-
+                    if (mQuestaoCorrente < mBancoDeQuestoes.length - 1) {
+                        int idQuestion = mBancoDeQuestoes[mQuestaoCorrente].getmQuestaoID();
+                        mQuestoes.setText(idQuestion);
+                        mContQuestoes++;
+                        mQuestaoCorrente++;
+                        System.out.println("contador das questoes no next " + mContQuestoes);
+                        System.out.println("indice da questao vigente " + mQuestaoCorrente);
+                    }
                 }
             });
 
-        }
+
 
 
         mBotaoPrevious = (ImageButton) findViewById(R.id.previous_button);
 
-        if (mContQuestoes < 0) {
+
 
             mBotaoPrevious.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-
-                    mQuestaoCorrente = (mQuestaoCorrente - 1) % mBancoDeQuestoes.length;
-                    int idQuestion = mBancoDeQuestoes[mQuestaoCorrente].getmQuestaoID();
-                    mQuestoes.setText(idQuestion);
-                    mContQuestoes--;
-                    System.out.println("contador das questoes no previous " + mContQuestoes);
-                    System.out.println("indice da questao vigente " + mQuestaoCorrente);
-
+                    if (mContQuestoes >= 0) {
+                        mQuestaoCorrente = (mQuestaoCorrente - 1) % mBancoDeQuestoes.length;
+                        int idQuestion = mBancoDeQuestoes[mQuestaoCorrente].getmQuestaoID();
+                        mQuestoes.setText(idQuestion);
+                        mContQuestoes--;
+                        System.out.println("contador das questoes no previous " + mContQuestoes);
+                        System.out.println("indice da questao vigente " + mQuestaoCorrente);
+                    }
                 }
             });
 
-        }
+
 
 
         int question = mBancoDeQuestoes[mQuestaoCorrente].getmQuestaoID();
