@@ -1,7 +1,9 @@
 package br.com.gustech.android.geoquiz;
 
+import android.annotation.SuppressLint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -20,6 +22,8 @@ public class QuizActivity extends AppCompatActivity {
     private int mQuestaoCorrente = 0;
 
     private TextView mQuestoes;
+
+    private static final String TAG = "QuizActivity";
 
     private Question[] mBancoDeQuestoes = new Question[]{
             new Question(R.string.questao1, true, false),
@@ -175,6 +179,37 @@ public class QuizActivity extends AppCompatActivity {
                 R.string.resultado + mPontuacao,
                 Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+   protected void onStart(){
+        super.onStart();
+        Log.d(TAG, "Entrou no onStart()");
+   }
+
+   @Override
+   protected void onResume(){
+        super.onResume();
+        Log.d(TAG, "Entrou no onResume");
+   }
+
+   @Override
+    protected void onPause(){
+        super.onPause();
+        Log.d(TAG, "Entrou no onPause");
+   }
+
+   @Override
+    protected void onStop(){
+        super.onStop();
+        Log.d(TAG, "Entrou no onStop");
+   }
+
+   @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        Log.d(TAG, "Entrou no onDestroy");
+   }
+
 
 
 }
